@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="kr">
+
+<head>
+
+	<title>  </title>
+
+	<meta charset="UTF-8">
+
+	<meta name="description" content="이수빈 포트폴리오">
+
+	<meta name="keywords" content="디자인, 기획">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+            #snowflakeContainer {
+           position: absolute;
+           left: 0px;
+           top: 0px;
+           display: none;
+         }
+   
+         .snowflake {
+           position: fixed;
+           /*background-color: #ccc;*/
+           background-color: #ccc;
+           user-select: none;
+           z-index: 1000;
+           pointer-events: none;
+           border-radius: 50%;
+           width: 15px;
+           height: 15px;
+         }
+        </style>
+       
+    
+</head>
+
+<body style="background-color: rgb(16, 16, 83);">
+    <div id="snowflakeContainer">
+      <span class="snowflake"></span>>
+      
+      <script>
+            var snowflakes = [];
+            var browserWidth;
+            var browserHeight;
+            var numberOfSnowflakes = 300;
+      
+            window.addEventListener("DOMContentLoaded", generateSnowflakes, false);
+      
+            // Make snowflakes
+            function Snowflake(element, speed, xPos, yPos) {
+              // set initial snowflake properties
+              this.element = element;
+              this.speed = speed;
+              this.xPos = xPos;
+              this.yPos = yPos;
+              this.scale = 1;
+      
+              // declare variables used for snowflake's motion
+              this.counter = 0;
+              this.sign = Math.random() < 0.5 ? 1 : -1;
+      
+              // setting an initial opacity and size for our snowflake
+              this.element.style.opacity = (0.1 + Math.random()) / 3;
+            }
+      
+            // The function responsible for actually moving our snowflake
+            Snowflake.prototype.move = function() {
+              this.counter += this.speed / 5000;
+              this.xPos += (this.sign * this.speed * Math.cos(this.counter)) / 40;
+              this.yPos += Math.sin(this.counter) / 40 + this.speed / 30;
+              this.scale = 0.5 + Math.abs((10 * Math.cos(this.counter)) / 20);
+      
+              // setting our snowflake's position
+              setTransform(
+                Math.round(this.xPos),
+                Math.round(this.yPos),
+                this.scale,
+                this.element
+              );
+      
+              // if snowflake goes below the browser window, move it back to the top
+              if (this.yPos > browserHeight) {
+                this.yPos = -50;
+              }
+            };
+      
+            // A performant way to set your snowflake's position and size
+            function setTransform(xPos, yPos, scale, el) {
+              el.style.transform = `translate(${xPos}px, ${yPos}px) scale(${scale}, ${scale})`;
+            }
+      
+            // The function responsible for creating the snowflake
+            function generateSnowflakes() {
+              var originalSnowflake = document.querySelector(".snowflake");
+      
+              // access our snowflake element's parent container
+              var snowflakeContainer = originalSnowflake.parentNode;
+              snowflakeContainer.style.display = "block";
+      
+              // get our browser's size
+              browserWidth = document.documentElement.clientWidth;
+              browserHeight = document.documentElement.clientHeight;
+      
+              // create each individual snowflake
+              for (var i = 0; i < numberOfSnowflakes; i++) {
+                var snowflakeClone = originalSnowflake.cloneNode(true);
+                snowflakeContainer.appendChild(snowflakeClone);
+      
+                // set our snowflake's initial position and related properties
+                var initialXPos = getPosition(50, browserWidth);
+                var initialYPos = getPosition(50, browserHeight);
+                var speed = 5 + Math.random() * 40;
+      
+                // create our Snowflake object
+                var snowflakeObject = new Snowflake(
+                  snowflakeClone,
+                  speed,
+                  initialXPos,
+                  initialYPos
+                );
+                snowflakes.push(snowflakeObject);
+              }
+      
+              // remove the original snowflake because we no longer need it visible
+              snowflakeContainer.removeChild(originalSnowflake);
+      
+              moveSnowflakes();
+            }
+      
+            function moveSnowflakes() {
+              for (var i = 0; i < snowflakes.length; i++) {
+                var snowflake = snowflakes[i];
+                snowflake.move();
+              }
+      
+              requestAnimationFrame(moveSnowflakes);
+            }
+      
+            // This function returns a number between (maximum - offset) and (maximum + offset)
+            function getPosition(offset, size) {
+              return Math.round(-1 * offset + Math.random() * (size + 2 * offset));
+            }
+          </script>
+
+	<!-- Main section start -->
+
+	<div class="main-site-warp">
+
+		<div class="site-menu-warp">
+
+			            
+
+            <!-- Main menu -->
+
+			<nav class="site-menu">
+
+				<a href="" class="active">Home</a>
+
+				<a href="">About Me</a>
+
+				<a href="">Blog</a>
+
+				<a href="">Portfolio</a>
+
+				<a href="">Contact</a>
+
+			
+
+            </nav>
+
+        </div>
+
+    
+
+			</header>
+
+            <div class="site-content-warp"></div>
+
+        
+
+			<!-- Left Side section -->
+
+			<div class="main-sidebar">
+
+				<div class="mb-warp">
+
+					<a href="index.html" class="site-logo">
+
+						<h2> 이수빈 </h2>
+
+						<h3>기획 디자이너</h3>
+
+					</a>
+
+					<div class="about-info">
+
+						<h2>Welcome to the world of Subeen Lee</h2>
+
+						<p></p>
+
+					</div>
+
+					<ul class="contact-info">
+
+						<li>+82 010-2998-5273</li>
+
+						<li><a href="bqb_3838@naver.com">bqb_3838@naver.com</a></li>
+
+					</ul>
+
+					<a href="#" class="site-btn">see my portfolio <img src="img/arrow-right.png" alt=""></a>
+
+				</div>
+
+			</div>
+
+			<!-- Left Side section end -->
+
+			<!-- Page start -->
+
+			<div class="page-section">
+
+				<div class="hero-section">
+
+					<div class="hero-scroll">
+
+						<div class="hero-track">
+
+							<div class="hs-item set-bg" data-setbg="img/hero/1.jpg">
+
+								<div class="hs-info">
+
+									<h5>ACTIVITY</h5>
+
+									<p>Sanctus chorus</p>
+
+									<a href="#"><img src="KakaoTalk_20190303_193930649.png" alt=""></a>
+
+                                    <image src="‪C:\Users\user\Desktop\KakaoTalk_20190303_193930649.png"></image>
+
+                                </div>
+
+							</div>
+
+							<div class="hs-item set-bg" data-setbg="img/hero/2.jpg">
+
+								<div class="hs-info">
+
+									<h5>FAVORITE FOOD</h5>
+
+									<p>Meat</p>
+
+									<a href="#"><img src="2017022714268028180_1_99_20170302174602.jpg" alt=""></a>
+
+                                    <image src=""></image>
+
+                                </div>
+
+							</div>
+
+							<div class="hs-item set-bg" data-setbg="img/hero/1.jpg">
+
+								<div class="hs-info">
+
+									<h5>BOOK</h5>
+
+									<p>The</p>
+
+                                    <a href="#"><img src="%B4%F5_%BD%C3ũ%B8%B4_å2.jpg" alt=""></a>
+
+                                    <image src="‪C:\Users\user\Desktop\%B4%F5_%BD%C3ũ%B8%B4_å2.jpg"></image>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Page end -->
+
+		</div>
+
+		<div class="copyright"><p>
+
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | by 이수빈 </a>
+
+  </p></div>
+
+	</div>
+
+
+
+	</body>
+
+</html>
